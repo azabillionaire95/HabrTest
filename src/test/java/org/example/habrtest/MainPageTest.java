@@ -35,23 +35,37 @@ public class MainPageTest {
     }
 
     @Test
-    public void vkTest() {
-
-
-        WebElement developLink = driver.findElement(By.xpath("//a[contains(text(),'Разработка')]"));
+    public void testVkLinkExists() {
+        // Переход на страницу "Разработка"
+        WebElement developLink = driver.findElement(By.xpath("//nav//a[contains(text(),'Разработка')]"));
         developLink.click();
 
-        WebElement companyLink = driver.findElement(By.xpath("//a[contains(text(),'Компании ')]"));
+        // Переход на страницу "Компании"
+        WebElement companyLink = driver.findElement(By.xpath("//span//a[contains(text(),'Компании ')]"));
         companyLink.click();
 
-        assertTrue(driver.findElement(By.xpath("//span[contains(text(),'VK')]")).isDisplayed(), "VK не найден");
-
-        WebElement vkLink = driver.findElement(By.xpath("//span[contains(text(),'VK')]"));
-        vkLink.click();
-
-        assertTrue(driver.findElement(By.xpath("//dt[contains(text(),'Информация')]")).isDisplayed(), "Информация не найдена");
-
-        assertTrue(driver.findElement(By.xpath("//h2[contains(text(),'Ссылки')]")).isDisplayed(), "Ссылки не найдены");
+        // Проверка наличия VK на странице компаний
+        assertTrue(driver.findElement(By.xpath("//a//span[contains(text(),'VK')]")).isDisplayed(), "VK не найден");
     }
 
+    @Test
+    public void testVkPageContents() {
+        // Переход на страницу "Разработка"
+        WebElement developLink = driver.findElement(By.xpath("//nav//a[contains(text(),'Разработка')]"));
+        developLink.click();
+
+        // Переход на страницу "Компании"
+        WebElement companyLink = driver.findElement(By.xpath("//span//a[contains(text(),'Компании ')]"));
+        companyLink.click();
+
+        // Нажатие на ссылку VK
+        WebElement vkLink = driver.findElement(By.xpath("//a//span[contains(text(),'VK')]"));
+        vkLink.click();
+
+        // Проверка наличия информации на странице VK
+        assertTrue(driver.findElement(By.xpath("//dl//dt[contains(text(),'Информация')]")).isDisplayed(), "Информация не найдена");
+
+        // Проверка наличия раздела "Ссылки"
+        assertTrue(driver.findElement(By.xpath("//div//h2[contains(text(),'Ссылки')]")).isDisplayed(), "Ссылки не найдены");
+    }
 }
